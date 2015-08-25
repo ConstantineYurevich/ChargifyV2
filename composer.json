@@ -1,0 +1,27 @@
+{
+  "name": "yurevichcv/chargify-v2",
+  "type": "library",
+  "description": "PHP wrapper for Chargify API v2",
+  "keywords": ["wrapper","chargify","api","php","direct","v2"],
+  "homepage": "https://github.com/yurevichcv/chargify-v2",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Constantine Yurevich",
+      "email": "yurevichcv@gmail.com",
+      "homepage": "https://linkedin.com/in/yurevichcv"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "guzzlehttp/guzzle": "^6.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "ChargifyV2\\": "src"
+    }
+  }
+}
