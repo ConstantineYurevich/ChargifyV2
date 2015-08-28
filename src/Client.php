@@ -1,9 +1,23 @@
 <?php
-
+/**
+ * ChargifyV2
+ *
+ * @link      https://github.com/yurevichcv/ChargifyV2
+ * @copyright Copyright (c) 2015 Constantine Yurevich
+ * @license   https://github.com/yurevichcv/ChargifyV2/blob/master/LICENSE (MIT License)
+ */
 namespace ChargifyV2;
+
+use GuzzleHttp\ClientInterface;
 
 /**
  * Class Client
+ *
+ * A wrapper class for Chargify API v2 Resources
+ *
+ * @link https://docs.chargify.com/api-call
+ * @link https://docs.chargify.com/api-signups
+ * @link https://docs.chargify.com/api-card-update
  *
  * @package ChargifyV2
  */
@@ -25,69 +39,121 @@ class Client
     protected $apiPassword;
 
     /***
-     * @var string
-     */
-    protected $apiSecret;
-
-    /***
      * @var array
      */
     protected $config;
 
     /***
-     * @var \GuzzleHttp\Client
+     * @var \GuzzleHttp\ClientInterface
      */
     protected $httpClient;
 
-    /***
-     * @param array $config
+    /**
+     * @param $apiId
+     * @param $apiPassword
+     * @param null $baseUrl
      */
-    public function __construct(array $config)
+    public function __construct($apiId, $apiPassword, $baseUrl = null)
     {
-        $this->config = $config;
+        $this->apiId       = $apiId;
+        $this->apiPassword = $apiPassword;
 
-        $this->apiId       = $config['api_id'];
-        $this->apiPassword = $config['api_password'];
-        $this->apiSecret   = $config['api_secret'];
-        $this->baseUrl     = $config['base_url'];
-
-        // set up http client
-        $this->httpClient = new \GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl,
-            'auth' => [$this->apiId, $this->apiPassword]
-        ]);
+        if ($baseUrl !== null) {
+            $this->baseUrl = $baseUrl;
+        }
     }
 
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function setHttpClient(ClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * Fetches Chargify Direct call info
+     * @link https://docs.chargify.com/api-call
+     *
+     * @param $callId
+     *
+     * @return object
+     */
     public function getCall($callId)
     {
-        $response = $this->request('GET', sprintf('/calls/%d', $callId));
+        $response = $this->request('GET', sprintf('/calls/%s', $callId));
+        $result = json_decode($response->getBody()->getContents());
 
-        //TODO
-
-        return $response;
+        return $result;
     }
 
-    private function request($path, $method, $data = [], $query = [])
+    /**
+     * Creates new signup
+     * @link https://docs.chargify.com/api-signups
+     *
+     * @param array $data
+     *
+     * @return object
+     */
+    public function signUp(array $data)
+    {
+        //not implemented yet
+    }
+
+    /**
+     * Updates a Subscription’s Payment Profile with new information,
+     * or creates a new Payment Profile for a Subscription where none currently exists.
+     * @link https://docs.chargify.com/api-card-update
+     *
+     * @param $subscriptionId
+     * @param array $data
+     *
+     * @return object
+     */
+    public function updateCard($subscriptionId, array $data)
+    {
+        //not implemented yet
+    }
+
+    /**
+     * @param string $method    One of GET, POST, PUT, DELETE
+     * @param string $path      Chargify API endpoint path
+     * @param array $data       Body data which will be sent as json
+     * @param array $query      Query string params
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    private function request($method, $path, $data = [], $query = [])
     {
         $method = strtoupper($method);
         $path   = ltrim($path, '/');
 
-        $headers = ['Accept' => 'application/json'];
-
-        $options = [
-            'headers' => $headers
+        $options['base_uri']    = $this->baseUrl;
+        $options['auth']        = [$this->apiId, $this->apiPassword];
+        $options['headers']     = [
+            'Accept' => 'application/json'
         ];
 
         if (!empty($query)) {
-            $options['query'] = $query;
+            $options['query']   = $query;
         }
-
         if (!empty($data)) {
-            $options['json'] = $data;
+            $options['json']    = $data;
         }
 
-        $response = $this->httpClient->request($method, $this->baseUrl . '/' . $path, $options);
+        $response = $this->getHttpClient()->request($method, $this->baseUrl . '/' . $path, $options);
 
         return $response;
+    }
+
+    /**
+     * @return \GuzzleHttp\Client|ClientInterface
+     */
+    private function getHttpClient()
+    {
+        if ($this->httpClient === null) {
+            $this->httpClient = new \GuzzleHttp\Client();
+        }
+
+        return $this->httpClient;
     }
 }

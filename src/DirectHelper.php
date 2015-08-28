@@ -1,9 +1,20 @@
 <?php
-
+/**
+ * ChargifyV2
+ *
+ * @link      https://github.com/yurevichcv/ChargifyV2
+ * @copyright Copyright (c) 2015 Constantine Yurevich
+ * @license   https://github.com/yurevichcv/ChargifyV2/blob/master/LICENSE (MIT License)
+ */
 namespace ChargifyV2;
 
 /**
  * Class DirectHelper
+ *
+ * Helper class which provides functionality for generating required secure data fields
+ * and verifying Chargify Direct signatures
+ *
+ * @link https://docs.chargify.com/chargify-direct-introduction
  *
  * @package ChargifyV2
  */
@@ -37,7 +48,7 @@ class DirectHelper
     /**
      * @var string
      */
-    protected $redirectUri;
+    protected $redirectUrl;
 
     /**
      * @var int
@@ -49,11 +60,23 @@ class DirectHelper
      */
     protected $nonce;
 
-    public function __construct(array $config)
+    /**
+     * @param $apiId
+     * @param $apiSecret
+     * @param $redirectUrl
+     * @param null $baseUrl
+     */
+    public function __construct($apiId, $apiSecret, $redirectUrl, $baseUrl = null)
     {
-        $this->apiId        = $config['api_id'];
-        $this->apiSecret    = $config['api_secret'];
-        $this->baseUrl      = $config['base_url'];
+        $this->apiId        = $apiId;
+        $this->apiSecret    = $apiSecret;
+        $this->redirectUrl  = $redirectUrl;
+
+        if ($baseUrl !== null) {
+            $this->baseUrl = $baseUrl;
+        }
+
+        $this->mergeRedirectUri();
     }
 
     /**
@@ -132,16 +155,16 @@ class DirectHelper
     /**
      * Set the URI where Chargify should redirect
      *
-     * @param $redirectUri
+     * @param $redirectUrl
      * @return $this
      * @throws Exception
      */
-    public function setRedirectUri($redirectUri)
+    public function setRedirectUrl($redirectUrl)
     {
         if (isset($this->_requestSignature)) {
             throw new Exception('The signature for this request has already been generated.');
         }
-        $this->redirectUri = $redirectUri;
+        $this->redirectUrl = $redirectUrl;
         $this->mergeRedirectUri();
 
         return $this;
@@ -154,8 +177,8 @@ class DirectHelper
      */
     protected function mergeRedirectUri()
     {
-        if (!empty($this->redirectUri)) {
-            $this->data = array_merge_recursive($this->data, array('redirect_uri' => $this->redirectUri));
+        if (!empty($this->redirectUrl)) {
+            $this->data = array_merge_recursive($this->data, array('redirect_uri' => $this->redirectUrl));
         }
     }
 
