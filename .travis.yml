@@ -10,7 +10,7 @@ php:
   - hhvm
 
 before_script:
-  - composer intall
+  - composer install
 
 script:
   - phpunit --configuration tests/phpunit.xml
