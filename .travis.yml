@@ -12,6 +12,5 @@ php:
 before_script:
   - composer intall
 
-
 script:
   - phpunit --configuration tests/phpunit.xml
