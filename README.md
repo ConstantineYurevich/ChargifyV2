@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/yurevichcv/ChargifyV2.svg?branch=master)](https://travis-ci.org/yurevichcv/ChargifyV2)
 
-ChargifyV2 is a PHP wrapper for Chargify API v2 which also inludes Helper class to work with Cargify Direct.
+ChargifyV2 is a PHP wrapper for Chargify API v2 which also includes herlpers to work with Cargify Direct.
 
 ## Installation
 
@@ -15,3 +15,59 @@ $ composer require yurevichcv/chargify-v2
 This will install ChargifyV2 and all required dependencies. ChargifyV2 requires PHP 5.5.0 or newer.
 
 ## Usage
+
+### Instatiation
+```php
+$direct = new \ChargifyV2\DirectHelper(
+    '{{your api_id}}',
+    '{{your api_secret}}',
+    '{{your redirect_url}}'
+);
+$direct->setData([
+  'secureField1' => 'value1',
+  'secureField2' => 'value2
+]);
+```
+
+### Sign Up/Card Update Form
+```phtml
+<html>
+<head>
+    <title>Sign up form</title>
+</head>
+<body>
+<form method="post" action="<?php echo $direct->getSignUpAction() ?>">
+    <?php foreach ($direct->getSecureFields() as $name => $value): ?>
+        <input type="hidden" name="secure[<?php echo $name ?>]" value="<?php echo $value ?>"/>
+    <?php endforeach; ?>
+    <!-- Other fields -->
+    <input type="submit" value="Sign Up" />
+</form>
+```
+
+### Success Page
+```php
+$direct = new \ChargifyV2\DirectHelper(
+    '{{your api_id}}',
+    '{{your api_secret}}'
+);
+
+$client = new \ChargifyV2\Client(
+    '{{your api_id}}',
+    '{{your api_password}}'
+);
+
+$isValidResponse = $direct->isValidResponseSignature(
+    $_GET['signature'],
+    $_GET['api_id'],
+    $_GET['timestamp'],
+    $_GET['nonce'],
+    $_GET['status_code'],
+    $_GET['result_code'],
+    $_GET['call_id']
+);
+
+if ($isValidResponse) {
+  $result = $client->getCall($_GET['call_id']);
+}
+```
