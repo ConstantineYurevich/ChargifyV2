@@ -25,7 +25,7 @@ $direct = new \ChargifyV2\DirectHelper(
 );
 $direct->setData([
   'secureField1' => 'value1',
-  'secureField2' => 'value2
+  'secureField2' => 'value2'
 ]);
 ```
 
