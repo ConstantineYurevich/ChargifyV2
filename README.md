@@ -16,7 +16,7 @@ This will install ChargifyV2 and all required dependencies. ChargifyV2 requires 
 
 ## Usage
 
-### Instatiation
+### Instantiation
 ```php
 $direct = new \ChargifyV2\DirectHelper(
     '{{your api_id}}',
@@ -71,3 +71,5 @@ if ($isValidResponse) {
   $result = $client->getCall($_GET['call_id']);
 }
 ```
+
+More examples can be found [here](https://github.com/yurevichcv/ChargifyV2/tree/master/examples).
