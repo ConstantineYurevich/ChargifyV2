@@ -6,7 +6,7 @@ PHP wrapper for Chargify API v2 which also includes helpers to work with Cargify
 
 ## Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install Slim.
+It's recommended that you use [Composer](https://getcomposer.org/) to install ChargifyV2.
 
 ```bash
 $ composer require yurevichcv/chargify-v2
