@@ -37,9 +37,8 @@ class DirectHelperTest extends \PHPUnit_Framework_TestCase
     {
         $apiId          = 'xxxx';
         $apiSecret      = 'yyyy';
-        $redirectUrl    = 'http://example.local';
 
-        $directHelper = new DirectHelper($apiId, $apiSecret, $redirectUrl);
+        $directHelper = new DirectHelper($apiId, $apiSecret);
 
         $timeStamp      = $directHelper->getTimeStamp();
         $nonce          = $directHelper->getNonce();

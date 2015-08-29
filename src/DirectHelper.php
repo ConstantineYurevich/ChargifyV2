@@ -66,17 +66,19 @@ class DirectHelper
      * @param $redirectUrl
      * @param null $baseUrl
      */
-    public function __construct($apiId, $apiSecret, $redirectUrl, $baseUrl = null)
+    public function __construct($apiId, $apiSecret, $redirectUrl = null, $baseUrl = null)
     {
         $this->apiId        = $apiId;
         $this->apiSecret    = $apiSecret;
-        $this->redirectUrl  = $redirectUrl;
+
+        if ($redirectUrl !== null) {
+            $this->redirectUrl = $redirectUrl;
+            $this->mergeRedirectUri();
+        }
 
         if ($baseUrl !== null) {
             $this->baseUrl = $baseUrl;
         }
-
-        $this->mergeRedirectUri();
     }
 
     /**
@@ -301,9 +303,13 @@ class DirectHelper
      * Get array of all hidden fields
      *
      * @return array
+     * @throws Exception
      */
     public function getSecureFields()
     {
+        if ($this->redirectUrl == null) {
+            throw new Exception('Redirect URL is not defined. Use setRedirectUrl() method before call');
+        }
         return [
             'api_id'    => $this->getApiId(),
             'timestamp' => $this->getTimeStamp(),
