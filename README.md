@@ -74,7 +74,7 @@ if ($isValidResponse) {
 
 More examples can be found [here](examples).
 
-## Learn more about at these links:
+## Learn more about at these links
 - [Chargify Website](https://www.chargify.com)
 - [Chargify Direct Introduction](https://docs.chargify.com/chargify-direct-introduction)
 
