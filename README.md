@@ -29,7 +29,7 @@ $direct->setData([
 ]);
 ```
 
-### Sign Up/Card Update Form
+### Sign up (card update) form
 ```phtml
 <html>
 <head>
@@ -45,7 +45,7 @@ $direct->setData([
 </form>
 ```
 
-### Success Page
+### Success page
 ```php
 $direct = new \ChargifyV2\DirectHelper(
     '{{your api_id}}',
@@ -74,7 +74,7 @@ if ($isValidResponse) {
 
 More examples can be found [here](examples).
 
-## Learn more about at these links
+## Learn more at these links
 - [Chargify Website](https://www.chargify.com)
 - [Chargify Direct Introduction](https://docs.chargify.com/chargify-direct-introduction)
 
