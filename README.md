@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/yurevichcv/ChargifyV2.svg?branch=master)](https://travis-ci.org/yurevichcv/ChargifyV2)
 
-ChargifyV2 is a PHP wrapper for Chargify API v2 which also includes herlpers to work with Cargify Direct.
+PHP wrapper for Chargify API v2 which also includes helpers to work with Cargify Direct.
 
 ## Installation
 
@@ -80,4 +80,4 @@ More examples can be found [here](examples).
 
 ## License
 
-The ChargifyV2 is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+The ChargifyV2 is licensed under the MIT license. See [License File](LICENSE) for more information.
