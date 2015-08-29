@@ -72,4 +72,12 @@ if ($isValidResponse) {
 }
 ```
 
-More examples can be found [here](https://github.com/yurevichcv/ChargifyV2/tree/master/examples).
+More examples can be found [here](examples).
+
+## Learn more about at these links:
+- [Chargify Website](https://www.chargify.com)
+- [Chargify Direct Introduction](https://docs.chargify.com/chargify-direct-introduction)
+
+## License
+
+The ChargifyV2 is licensed under the MIT license. See [License File](LICENSE.md) for more information.
