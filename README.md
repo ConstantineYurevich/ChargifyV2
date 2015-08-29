@@ -1,6 +1,9 @@
 # ChargifyV2
 
 [![Build Status](https://travis-ci.org/yurevichcv/ChargifyV2.svg?branch=master)](https://travis-ci.org/yurevichcv/ChargifyV2)
+[![License](http://img.shields.io/packagist/l/yurevichcv/chargify-v2.svg)](https://github.com/yurevichcv/ChagifyV2/blob/master/LICENSE)
+[![Latest Stable Version](http://img.shields.io/github/release/yurevichcv/chargify-v2.svg)](https://packagist.org/packages/yurevichcv/chargify-v2)
+[![Total Downloads](http://img.shields.io/packagist/dt/yurevichcv/chargify-v2.svg)](https://packagist.org/packages/yurevichcv/chargify-v2)
 
 PHP wrapper for Chargify API v2 which also includes helpers to work with Cargify Direct.
 
